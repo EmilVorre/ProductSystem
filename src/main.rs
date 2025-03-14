@@ -1,26 +1,23 @@
-#![allow(non_snake_case)]
 #![warn(unused_imports)]
 
-
-mod dataStruct {
+mod data_struct {
     pub mod products;
 }
 
-use dataStruct::products::Product;
+use data_struct::products::Product;
+use ProductSystem::{add_product, add_stock, remove_stock, print_products};
 
 fn main() {
     let mut products = Vec::new();
 
-    let beer = Product::new("Beer", 2.5, 10.0);
-    let cola = Product::new("Cola", 1.5, 5.0);
+    products.push(Product::new("Tuborg_Grøn", 7.0, 100.0));
+    products.push(Product::new("Tuborg_Classic", 7.0, 100.0));
+    products.push(Product::new("Coca_Cola", 12.0, 50.0));
+    products.push(Product::new("Faxe_Kondi", 12.0, 50.0));
+    products.push(Product::new("Hvid_Monster", 14.0, 50.0));
 
-    products.push(beer);
-    products.push(cola);
-
-    for product in products {
-        println!("{} - {} - {}", product.name, product.price, product.amount);
-    }
-
-
-
+    add_product(&mut products, "Hancook_juice", 8.0, 50.0);
+    add_stock(&mut products, "Tuborg_Grøn", 50.0);
+    remove_stock(&mut products, "Tuborg_Grøn", 10.0);
+    print_products(&products);
 }
