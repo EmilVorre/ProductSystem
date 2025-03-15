@@ -1,10 +1,6 @@
 #![warn(unused_imports)]
 
-mod data_struct {
-    pub mod products;
-}
-
-use data_struct::products::Product;
+use ProductSystem::data_struct::products::Product;
 use ProductSystem::{add_product, add_stock, remove_stock, print_products};
 
 fn main() {
