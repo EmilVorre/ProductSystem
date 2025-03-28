@@ -1,0 +1,5 @@
+
+## terminal test for /product endpoint
+curl -X POST http://localhost:8080/product \
+  -H "Content-Type: application/json" \
+  -d '{"product_name":"Rust Book","quantity":10}'
