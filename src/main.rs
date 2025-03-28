@@ -1,7 +1,8 @@
 #![warn(unused_imports)]
 
-use ProductSystem::data_struct::products::Product;
-use ProductSystem::{add_product, add_stock, remove_stock, print_products};
+use product_system::data_struct::products::Product;
+use product_system::{add_product, add_stock, remove_stock, print_products};
+
 
 fn main() {
     let mut products = Vec::new();

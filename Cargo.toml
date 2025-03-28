@@ -1,11 +1,15 @@
 [package]
-name = "ProductSystem"
+name = "product_system"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-
+actix-web = "4"
 
 [[bin]]
 name = "cli"
 path = "src/bin/cli.rs"
+
+[[bin]]
+name = "http_server"
+path = "src/bin/http_server.rs"
