@@ -1,0 +1,1 @@
+fn(Json<ProductSale>) -> impl std::future::Future<Output = impl Responder> {<product as HttpServiceFactory>::register::product}

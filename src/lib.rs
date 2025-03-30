@@ -24,6 +24,10 @@ pub fn add_product(products: &mut Vec<data_struct::products::Product>, name: &st
     products.push(data_struct::products::Product::new(name, price, amount));
 }
 
+pub fn add_product_with_negativ_stock(products: &mut Vec<data_struct::products::Product>, name: &str, price: f64, amount: f64) {
+    products.push(data_struct::products::Product::new(name, price, -amount));
+}
+
 // Adds stock to a product
 pub fn add_stock(products: &mut Vec<data_struct::products::Product>, name: &str, amount: f64) {
     for product in products.iter_mut() {

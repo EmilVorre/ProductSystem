@@ -1,0 +1,1 @@
+/home/vorherre/Documents/code/ProductSystem/target/debug/http_server: /home/vorherre/Documents/code/ProductSystem/src/bin/http_server.rs /home/vorherre/Documents/code/ProductSystem/src/data_struct/mod.rs /home/vorherre/Documents/code/ProductSystem/src/data_struct/products.rs /home/vorherre/Documents/code/ProductSystem/src/lib.rs
