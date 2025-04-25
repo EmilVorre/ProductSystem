@@ -9,7 +9,7 @@ fn test_add_product() {
     assert_eq!(products.len(), 1);
     assert_eq!(products[0].name, "Test_Product");
     assert_eq!(products[0].price, 10.0);
-    assert_eq!(products[0].amount, 20.0);
+    assert_eq!(products[0].quantity, 20.0);
 }
 
 // Tests the add_stock function
@@ -17,7 +17,7 @@ fn test_add_product() {
 fn test_add_stock() {
     let mut products = vec![Product::new("Test_Product", 10.0, 20.0)];
     add_stock(&mut products, "Test_Product", 10.0);
-    assert_eq!(products[0].amount, 30.0);
+    assert_eq!(products[0].quantity, 30.0);
 }
 
 // Tests the remove_stock function
@@ -25,5 +25,5 @@ fn test_add_stock() {
 fn test_remove_stock() {
     let mut products = vec![Product::new("Test_Product", 10.0, 20.0)];
     remove_stock(&mut products, "Test_Product", 10.0);
-    assert_eq!(products[0].amount, 10.0);
+    assert_eq!(products[0].quantity, 10.0);
 }
