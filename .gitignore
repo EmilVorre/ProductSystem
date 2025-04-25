@@ -1,0 +1,45 @@
+# === Rust / Cargo ===
+target/
+**/*.rs.bk
+
+# === IDE / Editor trash ===
+*.swp
+*.swo
+*.tmp
+*.log
+*.bak
+*.old
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains (CLion, IntelliJ)
+.idea/
+*.iml
+
+# === OS-specific ===
+.DS_Store
+Thumbs.db
+
+# === Environment / Secrets ===
+.env
+.env.*
+
+# === SQLx (offline schema cache) ===
+sqlx-data.json
+
+# === Docker ===
+*.pid
+*.sock
+docker-compose.override.yml
+
+# === Build Artifacts ===
+*.lock
+*.crate
+
+# === Misc ===
+node_modules/
+dist/
+coverage/
+
