@@ -1,9 +1,11 @@
 
 use product_system::cli::{
-    handle_add_product,
-    handle_remove_product,
-    handle_print_inventory,
     clear_terminal,
+};
+use product_system::handlers::{
+    handle_add_product_cli,
+    handle_remove_product_cli,
+    handle_print_inventory_cli,
 };
 
 use product_system::db::create_pool;
@@ -30,9 +32,9 @@ async fn main() {
         };
 
         match choice {
-            1 => handle_add_product(&pool).await,
-            2 => handle_remove_product(&pool).await,
-            3 => handle_print_inventory(&pool).await,
+            1 => handle_add_product_cli(&pool).await,
+            2 => handle_remove_product_cli(&pool).await,
+            3 => handle_print_inventory_cli(&pool).await,
             4 => break,
             _ => println!("Invalid choice."),
         }

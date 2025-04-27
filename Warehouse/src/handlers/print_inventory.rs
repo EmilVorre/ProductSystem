@@ -1,32 +1,10 @@
-/*
-use sqlx::PgPool;
-use crate::db::{
-    upsert_product_stock,
-    remove_product_stock,
-    get_all_products,
-};
-use crate::cli::input::{
-    get_stock_details,
-    get_product_details,
-};
 use std::io::{self, Write};
+use sqlx::PgPool;
+use crate::db::get_all_products;
 
 
-pub async fn handle_add_product(pool: &PgPool){
-    let (name, _price, quantity) = crate::cli::input::get_product_details();
-    if let Err(e) = upsert_product_stock(pool, &name, quantity).await {
-        eprintln!("Error adding/updating product: {:?}", e);
-    }
-}
 
-pub async fn handle_remove_product(pool: &PgPool){
-    let (name, quantity) = get_stock_details();
-    if let Err(e) = remove_product_stock(pool, &name, quantity).await {
-        eprintln!("Error removing product: {:?}", e);
-    }
-}
-
-pub async fn handle_print_inventory(pool: &PgPool){
+pub async fn handle_print_inventory_cli(pool: &PgPool){
     match get_all_products(pool).await {
         Ok(products) => {
             println!("{:<20} | {:<10} | {:<10}", "Product", "Price", "Quantity");
@@ -47,4 +25,3 @@ pub async fn handle_print_inventory(pool: &PgPool){
     io::stdin().read_line(&mut enter).expect("Failed to read line");
     
 }
-*/
