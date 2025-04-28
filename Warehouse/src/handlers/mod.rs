@@ -4,6 +4,7 @@ pub mod print_inventory;
 pub mod order_list;
 pub mod update;
 pub mod export;
+pub mod utils;
 
 pub use add::{
     add_product_handler,
@@ -33,4 +34,10 @@ pub use update::{
 
 pub use export::{
     handle_export_all_products_cli,
+};
+
+pub use utils::{
+    get_product_with_retry,
+    get_product_without_retry,
+    read_number_with_retry,
 };

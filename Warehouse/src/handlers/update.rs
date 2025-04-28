@@ -1,6 +1,5 @@
 use sqlx::PgPool;
 use crate::db::products::{
-    get_product_by_name, 
     change_product_details,
     change_product_distributor,
     change_product_minimum_stock,
@@ -12,15 +11,15 @@ use crate::cli::utils::{
     wait_for_enter,
 };
 use crate::utils::string_utils::clean_string_for_db;
+use crate::handlers::utils::{
+    get_product_with_retry,
+    read_number_with_retry,
+};
 
 
 
 pub async fn handle_update_product_cli(pool: &PgPool) -> Result<(), Box<dyn std::error::Error>> {
-    println!("Enter the name of the product to update:");
-    let raw_name = read_input().await;
-    let name = clean_string_for_db(&raw_name);
-
-    let product = get_product_by_name(pool, &name).await?;
+    let product = get_product_with_retry(pool).await?;
 
     println!("Current product details: {:?}", product);
 
@@ -63,32 +62,12 @@ pub async fn handle_update_product_cli(pool: &PgPool) -> Result<(), Box<dyn std:
 
 
 pub async fn handle_update_product_quantity_cli(pool: &PgPool) -> Result<(), Box<dyn std::error::Error>> {
-    println!("Enter the name of the product to update:");
-    let raw_name = read_input().await;
-    let name = clean_string_for_db(&raw_name);
-
-    let product = match get_product_by_name(pool, &name).await {
-        Ok(prod) => prod,
-        Err(_) => {
-            println!("Product not found. Please check the name and try again.");
-            wait_for_enter();
-            return Ok(());
-        }
-    };
+    let product = get_product_with_retry(pool).await?;
 
     println!("Current product details: {:?}", product);
 
     println!("Enter new quantity (current: {}):", product.quantity);
-    let quantity_input = read_input().await;
-    let new_quantity = match quantity_input.parse::<f64>() {
-        Ok(num) => num,
-        Err(_) => {
-            println!("Invalid input. Please enter a valid number.");
-            wait_for_enter();
-            return Ok(());
-        }
-    };
-
+    let new_quantity: f64 = read_number_with_retry().await;
 
     println!("Updating product quantity...");
     change_product_quantity(
@@ -105,31 +84,12 @@ pub async fn handle_update_product_quantity_cli(pool: &PgPool) -> Result<(), Box
 }
 
 pub async fn handle_update_product_minimum_stock_cli(pool: &PgPool) -> Result<(), Box<dyn std::error::Error>> {
-    println!("Enter the name of the product to update:");
-    let raw_name = read_input().await;
-    let name = clean_string_for_db(&raw_name);
-
-    let product = match get_product_by_name(pool, &name).await {
-        Ok(prod) => prod,
-        Err(_) => {
-            println!("Product not found. Please check the name and try again.");
-            wait_for_enter();
-            return Ok(());
-        }
-    };
+    let product = get_product_with_retry(pool).await?;
 
     println!("Current product details: {:?}", product);
 
     println!("Enter new minimum stock (current: {}):", product.minimum_stock.unwrap_or(0.0));
-    let minimum_stock_input = read_input().await;
-    let new_minimum_stock = match minimum_stock_input.parse::<f64>() {
-        Ok(num) => num,
-        Err(_) => {
-            println!("Invalid input. Please enter a valid number.");
-            wait_for_enter();
-            return Ok(());
-        }
-    };
+    let new_minimum_stock: f64 = read_number_with_retry().await;
 
     println!("Updating product minimum stock...");
     change_product_minimum_stock(
@@ -146,31 +106,13 @@ pub async fn handle_update_product_minimum_stock_cli(pool: &PgPool) -> Result<()
 }
 
 pub async fn handle_update_product_pack_size_cli(pool: &PgPool) -> Result<(), Box<dyn std::error::Error>> {
-    println!("Enter the name of the product to update:");
-    let raw_name = read_input().await;
-    let name = clean_string_for_db(&raw_name);
-
-    let product = match get_product_by_name(pool, &name).await {
-        Ok(prod) => prod,
-        Err(_) => {
-            println!("Product not found. Please check the name and try again.");
-            wait_for_enter();
-            return Ok(());
-        }
-    };
+    let product = get_product_with_retry(pool).await?;
 
     println!("Current product details: {:?}", product);
 
     println!("Enter new pack size (current: {}):", product.pack_size.unwrap_or(1));
-    let pack_size_input = read_input().await;
-    let new_pack_size = match pack_size_input.parse::<i32>() {
-        Ok(num) => num,
-        Err(_) => {
-            println!("Invalid input. Please enter a valid number.");
-            wait_for_enter();
-            return Ok(());
-        }
-    };
+    let new_pack_size: i32 = read_number_with_retry().await;
+
 
     println!("Updating product pack size...");
     change_product_pack_size(
@@ -187,18 +129,7 @@ pub async fn handle_update_product_pack_size_cli(pool: &PgPool) -> Result<(), Bo
 }
 
 pub async fn handle_update_product_distributor_cli(pool: &PgPool) -> Result<(), Box<dyn std::error::Error>> {
-    println!("Enter the name of the product to update:");
-    let raw_name = read_input().await;
-    let name = clean_string_for_db(&raw_name);
-
-    let product = match get_product_by_name(pool, &name).await {
-        Ok(prod) => prod,
-        Err(_) => {
-            println!("Product not found. Please check the name and try again.");
-            wait_for_enter();
-            return Ok(());
-        }
-    };
+    let product = get_product_with_retry(pool).await?;
 
     println!("Current product details: {:?}", product);
 
