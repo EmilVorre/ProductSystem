@@ -13,3 +13,9 @@ pub async fn read_input() -> String {
         .expect("Failed to read line");
     input.trim().to_string()
 }
+
+pub fn wait_for_enter() {
+    println!("Press Enter to continue...");
+    let mut enter = String::new();
+    io::stdin().read_line(&mut enter).expect("Failed to read line");
+}

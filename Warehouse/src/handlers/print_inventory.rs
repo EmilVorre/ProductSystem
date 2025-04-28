@@ -1,6 +1,6 @@
-use std::io::{self, Write};
 use sqlx::PgPool;
 use crate::db::get_all_products;
+use crate::cli::utils::wait_for_enter;
 
 
 
@@ -19,9 +19,6 @@ pub async fn handle_print_inventory_cli(pool: &PgPool){
     }
 
     // Wait for user input before returning to the main menu
-    println!("\nPress Enter to return to the main menu...");
-    io::stdout().flush().expect("Failed to flush stdout");
-    let mut enter = String::new();
-    io::stdin().read_line(&mut enter).expect("Failed to read line");
+    wait_for_enter();
     
 }

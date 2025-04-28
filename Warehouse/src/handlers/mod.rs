@@ -25,6 +25,10 @@ pub use order_list::{
 
 pub use update::{
     handle_update_product_cli,
+    handle_update_product_quantity_cli,
+    handle_update_product_minimum_stock_cli,
+    handle_update_product_pack_size_cli,
+    handle_update_product_distributor_cli,
 };
 
 pub use export::{

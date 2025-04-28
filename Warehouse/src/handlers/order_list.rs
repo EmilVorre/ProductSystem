@@ -1,5 +1,6 @@
 use crate::db::products::get_products_below_minimum_stock;
 use sqlx::PgPool;
+use crate::cli::utils::wait_for_enter;
 
 pub async fn handle_print_order_list_cli(pool: &PgPool) -> Result<(), sqlx::Error> {
     let products = get_products_below_minimum_stock(pool).await?;
@@ -22,6 +23,8 @@ pub async fn handle_print_order_list_cli(pool: &PgPool) -> Result<(), sqlx::Erro
             );
         }
     }
+
+    wait_for_enter();
 
     Ok(())
 }

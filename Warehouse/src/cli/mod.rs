@@ -8,4 +8,6 @@ pub use input::{
 
 pub use utils::{
     clear_terminal,
+    read_input,
+    wait_for_enter,
 };

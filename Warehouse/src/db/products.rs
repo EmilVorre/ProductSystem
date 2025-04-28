@@ -120,3 +120,83 @@ pub async fn get_product_by_name(pool: &PgPool, name: &str) -> Result<Product, s
 
     Ok(product)
 }
+
+pub async fn change_product_quantity(
+    pool: &PgPool,
+    id: i32,
+    new_quantity: Option<f64>,
+) -> Result<(), sqlx::Error> {
+    sqlx::query(
+        r#"
+        UPDATE products
+        SET quantity = COALESCE($2, quantity)
+        WHERE id = $1
+        "#,
+    )
+    .bind(id)
+    .bind(new_quantity)
+    .execute(pool)
+    .await?;
+    
+    Ok(())
+}
+
+pub async fn change_product_minimum_stock(
+    pool: &PgPool,
+    id: i32,
+    new_minimum_stock: Option<f64>,
+) -> Result<(), sqlx::Error> {
+    sqlx::query(
+        r#"
+        UPDATE products
+        SET minimum_stock = COALESCE($2, minimum_stock)
+        WHERE id = $1
+        "#,
+    )
+    .bind(id)
+    .bind(new_minimum_stock)
+    .execute(pool)
+    .await?;
+    
+    Ok(())
+}
+
+pub async fn change_product_pack_size(
+    pool: &PgPool,
+    id: i32,
+    new_pack_size: Option<i32>,
+) -> Result<(), sqlx::Error> {
+    sqlx::query(
+        r#"
+        UPDATE products
+        SET pack_size = COALESCE($2, pack_size)
+        WHERE id = $1
+        "#,
+    )
+    .bind(id)
+    .bind(new_pack_size)
+    .execute(pool)
+    .await?;
+    
+    Ok(())
+}
+
+pub async fn change_product_distributor(
+    pool: &PgPool,
+    id: i32,
+    new_distributor: Option<&str>,
+) -> Result<(), sqlx::Error> {
+    sqlx::query(
+        r#"
+        UPDATE products
+        SET distributor = COALESCE($2, distributor)
+        WHERE id = $1
+        "#,
+    )
+    .bind(id)
+    .bind(new_distributor)
+    .execute(pool)
+    .await?;
+    
+    Ok(())
+}
