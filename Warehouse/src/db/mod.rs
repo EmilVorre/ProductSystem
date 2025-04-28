@@ -6,4 +6,7 @@ pub use products::{
     upsert_product_stock,
     remove_product_stock,
     get_all_products,
+    get_products_below_minimum_stock,
+    get_product_by_name,
+    change_product_details,
 };

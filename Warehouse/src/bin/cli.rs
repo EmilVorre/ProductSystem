@@ -6,6 +6,7 @@ use product_system::handlers::{
     handle_add_product_cli,
     handle_remove_product_cli,
     handle_print_inventory_cli,
+    handle_print_order_list_cli,
 };
 
 use product_system::db::create_pool;
@@ -35,7 +36,8 @@ async fn main() {
             1 => handle_add_product_cli(&pool).await,
             2 => handle_remove_product_cli(&pool).await,
             3 => handle_print_inventory_cli(&pool).await,
-            4 => break,
+            4 => handle_print_order_list_cli(&pool).await.expect("REASON"),
+            5 => break,
             _ => println!("Invalid choice."),
         }
     }
