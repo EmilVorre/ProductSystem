@@ -22,7 +22,8 @@ async fn main() {
         println!("1. Add a product");
         println!("2. Remove stock");
         println!("3. Print inventory");
-        println!("4. Exit \n");
+        println!("4. Print order list");
+        println!("5. Exit \n");
 
         let mut choice = String::new();
         std::io::stdin().read_line(&mut choice).expect("Failed to read line");
