@@ -3,6 +3,7 @@ pub mod remove;
 pub mod print_inventory;
 pub mod order_list;
 pub mod update;
+pub mod export;
 
 pub use add::{
     add_product_handler,
@@ -24,4 +25,8 @@ pub use order_list::{
 
 pub use update::{
     handle_update_product_cli,
+};
+
+pub use export::{
+    handle_export_all_products_cli,
 };

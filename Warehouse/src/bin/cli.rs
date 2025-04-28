@@ -7,6 +7,7 @@ use product_system::handlers::{
     handle_remove_product_cli,
     handle_print_inventory_cli,
     handle_print_order_list_cli,
+    handle_export_all_products_cli,
 };
 
 use product_system::db::create_pool;
@@ -23,7 +24,8 @@ async fn main() {
         println!("2. Remove stock");
         println!("3. Print inventory");
         println!("4. Print order list");
-        println!("5. Exit \n");
+        println!("5. Export all products to CSV");
+        println!("6. Exit \n");
 
         let mut choice = String::new();
         std::io::stdin().read_line(&mut choice).expect("Failed to read line");
@@ -38,7 +40,8 @@ async fn main() {
             2 => handle_remove_product_cli(&pool).await,
             3 => handle_print_inventory_cli(&pool).await,
             4 => handle_print_order_list_cli(&pool).await.expect("REASON"),
-            5 => break,
+            5 => handle_export_all_products_cli(&pool).await.expect("REASON"),
+            6 => break,
             _ => println!("Invalid choice."),
         }
     }
