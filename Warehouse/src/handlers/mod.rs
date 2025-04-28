@@ -5,6 +5,7 @@ pub mod order_list;
 pub mod update;
 pub mod export;
 pub mod utils;
+pub mod backup;
 
 pub use add::{
     add_product_handler,
@@ -40,4 +41,8 @@ pub use utils::{
     get_product_with_retry,
     get_product_without_retry,
     read_number_with_retry,
+};
+pub use backup::{
+    handle_backup_database_cli,
+    handle_restore_database_cli,
 };

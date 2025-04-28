@@ -1,0 +1,38 @@
+[
+  {
+    "id": 4,
+    "name": "booster",
+    "price": 0.0,
+    "quantity": 75.0,
+    "minimum_stock": 0.0,
+    "pack_size": 1,
+    "distributor": ""
+  },
+  {
+    "id": 1,
+    "name": "coca__cola",
+    "price": 0.0,
+    "quantity": 35.0,
+    "minimum_stock": 0.0,
+    "pack_size": 1,
+    "distributor": ""
+  },
+  {
+    "id": 2,
+    "name": "fanta",
+    "price": 0.0,
+    "quantity": 10.0,
+    "minimum_stock": 0.0,
+    "pack_size": 1,
+    "distributor": ""
+  },
+  {
+    "id": 3,
+    "name": "monster",
+    "price": 0.0,
+    "quantity": 50.0,
+    "minimum_stock": 0.0,
+    "pack_size": 1,
+    "distributor": ""
+  }
+]

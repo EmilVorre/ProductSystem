@@ -12,6 +12,8 @@ use product_system::handlers::{
     handle_update_product_minimum_stock_cli,
     handle_update_product_pack_size_cli,
     handle_update_product_distributor_cli,
+    handle_backup_database_cli,
+    handle_restore_database_cli,
 };
 use product_system::db::create_pool;
 use sqlx::PgPool;
@@ -31,7 +33,8 @@ async fn main() {
         println!("4. Print order list");
         println!("5. Export all products to CSV");
         println!("6. Update product menu");
-        println!("7. Exit \n");
+        println!("7. Backup menu");
+        println!("8. Exit \n");
 
         let mut choice = String::new();
         std::io::stdin().read_line(&mut choice).expect("Failed to read line");
@@ -48,7 +51,8 @@ async fn main() {
             4 => handle_print_order_list_cli(&pool).await.expect("REASON"),
             5 => handle_export_all_products_cli(&pool).await.expect("REASON"),
             6 => update_menu(&pool).await,
-            7 => break,
+            7 => backup_menu(&pool).await,
+            8 => break,
             _ => println!("Invalid choice."),
         }
     }
@@ -99,5 +103,40 @@ async fn update_menu(pool: &PgPool) {
     if let Err(e) = result {
         println!("An error occurred: {e}");
         wait_for_enter();
+    }
+}
+
+async fn backup_menu(pool: &PgPool) {
+    clear_terminal();
+
+    println!("Please choose an option:");
+    println!("1. Backup database");
+    println!("2. Restore database");
+    println!("3. Exit \n");
+
+    let mut choice = String::new();
+    std::io::stdin().read_line(&mut choice).expect("Failed to read line");
+
+    let choice: u32 = match choice.trim().parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Invalid input, try again!");
+            wait_for_enter();
+            return;
+        }        
+    };
+
+    match choice {
+        1 => handle_backup_database_cli(&pool).await.expect("REASON"),
+        2 => handle_restore_database_cli(&pool).await.expect("REASON"),
+        3 => {
+            println!("Exiting backup menu!");
+            return;
+        },
+        _ => {
+            println!("Invalid choice, returning to backup menu...");
+            wait_for_enter();
+            return;
+        }
     }
 }

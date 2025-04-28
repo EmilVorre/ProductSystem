@@ -13,4 +13,6 @@ pub use products::{
     change_product_minimum_stock,
     change_product_pack_size,
     change_product_quantity,
+    insert_product_direct,
+    delete_all_products,
 };

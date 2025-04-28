@@ -200,3 +200,29 @@ pub async fn change_product_distributor(
     
     Ok(())
 }
+
+pub async fn delete_all_products(pool: &PgPool) -> Result<(), sqlx::Error> {
+    sqlx::query!("DELETE FROM products")
+        .execute(pool)
+        .await?;
+    Ok(())
+}
+
+
+pub async fn insert_product_direct(pool: &PgPool, product: &Product) -> Result<(), sqlx::Error> {
+    sqlx::query!(
+        r#"
+        INSERT INTO products (name, price, quantity, minimum_stock, pack_size, distributor)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        "#,
+        product.name,
+        product.price,
+        product.quantity,
+        product.minimum_stock,
+        product.pack_size,
+        product.distributor,
+    )
+    .execute(pool)
+    .await?;
+    Ok(())
+}
