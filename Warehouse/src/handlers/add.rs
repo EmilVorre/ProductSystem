@@ -1,10 +1,13 @@
 use actix_web::{post, web, HttpResponse, Responder};
 use sqlx::PgPool;
 use crate::models::products::{ProductSale};
-use crate::db::upsert_product_stock;
+use crate::db::{
+    upsert_product_stock,
+    add_product,
+};
 use crate::utils::string_utils::clean_string_for_db;
 use crate::cli::input::{
-    get_product_details,
+    get_product_details_full,
 };
 
 
@@ -24,9 +27,20 @@ pub async fn add_product_handler(
     }
 }
 
-pub async fn handle_add_product_cli(pool: &PgPool){
-    let (name, _price, quantity) = get_product_details();
-    if let Err(e) = upsert_product_stock(pool, &clean_string_for_db(&name), quantity).await {
-        eprintln!("Error adding/updating product: {:?}", e);
+pub async fn handle_add_product_cli(pool: &PgPool) -> Result<(), Box<dyn std::error::Error>> {
+    let (name, price, quantity, minimum_stock, pack_size, distributor) = get_product_details_full();
+    let clean_distributor = clean_string_for_db(&distributor);
+    if let Err(e) = add_product(
+        pool, 
+        &clean_string_for_db(&name), 
+        price, 
+        quantity, 
+        Some(minimum_stock), 
+        Some(pack_size), 
+        Some(&clean_distributor.as_str())
+    ).await {
+        eprintln!("Error adding product: {:?}", e);
     }
+
+    Ok(())
 }

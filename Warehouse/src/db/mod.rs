@@ -15,4 +15,5 @@ pub use products::{
     change_product_quantity,
     insert_product_direct,
     delete_all_products,
+    add_product,
 };

@@ -22,6 +22,33 @@ pub async fn upsert_product_stock(
     Ok(())
 }
 
+pub async fn add_product(
+    pool: &PgPool,
+    name: &str,
+    price: f64,
+    quantity: f64,
+    minimum_stock: Option<f64>,
+    pack_size: Option<i32>,
+    distributor: Option<&str>,
+) -> Result<(), sqlx::Error> {
+    sqlx::query(
+        r#"
+        INSERT INTO products (name, price, quantity, minimum_stock, pack_size, distributor)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        "#,
+    )
+    .bind(name)
+    .bind(price)
+    .bind(quantity)
+    .bind(minimum_stock)
+    .bind(pack_size)
+    .bind(distributor)
+    .execute(pool)
+    .await?;
+    
+    Ok(())
+}
+
 pub async fn remove_product_stock(
     pool: &PgPool,
     name: &str,

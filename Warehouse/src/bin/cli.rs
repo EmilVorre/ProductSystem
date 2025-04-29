@@ -45,7 +45,7 @@ async fn main() {
         };
 
         match choice {
-            1 => handle_add_product_cli(&pool).await,
+            1 => handle_add_product_cli(&pool).await.expect("REASON"),
             2 => handle_remove_product_cli(&pool).await,
             3 => handle_print_inventory_cli(&pool).await,
             4 => handle_print_order_list_cli(&pool).await.expect("REASON"),
